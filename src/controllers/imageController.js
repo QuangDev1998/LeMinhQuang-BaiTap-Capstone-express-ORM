@@ -39,6 +39,16 @@ export const getComments = async (req, res) => {
   }
 };
 
+export const saveImage = async (req, res) => {
+  try {
+    const { userId, imageId } = req.body;
+    const save = await imageService.saveImage(userId, imageId);
+    res.status(200).json(save);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const checkSavedImage = async (req, res) => {
   try {
     const { id } = req.params;

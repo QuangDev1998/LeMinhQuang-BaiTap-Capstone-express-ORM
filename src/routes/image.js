@@ -7,6 +7,7 @@ import {
   checkSavedImage,
   addComment,
   uploadImage,
+  saveImage,
 } from "../controllers/imageController.js";
 import authMiddleware from "../middleware/auth.js";
 import multer from "multer";
@@ -157,6 +158,34 @@ router.get("/:id/saved", authMiddleware, checkSavedImage);
  *         description: Bad request
  */
 router.post("/:id/comments", authMiddleware, addComment);
+/**
+ * @swagger
+ * /api/images/save-image:
+ *   post:
+ *     summary: Save an image for the user
+ *     tags: [Images]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               imageId:
+ *                 type: integer
+ *                 description: ID of the image to save
+ *               userId:
+ *                 type: integer
+ *                 description: ID of user
+ *     responses:
+ *       200:
+ *         description: Image saved successfully
+ *       500:
+ *         description: Server error
+ */
+router.post("/save-image", saveImage);
 
 /**
  * @swagger

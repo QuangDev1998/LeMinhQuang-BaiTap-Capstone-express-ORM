@@ -8,7 +8,7 @@ export const getAllImages = async () => {
 
 export const searchImagesByTitle = async (query) => {
   return prisma.image.findMany({
-    where: { title: { contains: query, mode: "insensitive" } },
+    where: { title: { contains: query } },
     include: { user: true },
   });
 };
@@ -52,5 +52,11 @@ export const createImage = async (title, description, url, userId) => {
       userId,
     },
     include: { user: true },
+  });
+};
+
+export const saveImage = async (userId, imageId) => {
+  return prisma.savedImage.create({
+    data: { userId, imageId },
   });
 };
