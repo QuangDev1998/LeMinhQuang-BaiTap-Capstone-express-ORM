@@ -27,35 +27,51 @@ router.get("/me", authMiddleware, getUserInfo);
 
 /**
  * @swagger
- * /api/user/me/saved:
+ * /api/user/{id}/saved:
  *   get:
- *     summary: Get saved images of the user
+ *     summary: Get saved images of a user by ID
  *     tags: [User]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: User ID
  *     responses:
  *       200:
  *         description: List of saved images
  *       500:
  *         description: Server error
  */
-router.get("/me/saved", authMiddleware, getSavedImages);
+
+router.get("/:id/saved", authMiddleware, getSavedImages);
 
 /**
  * @swagger
- * /api/user/me/created:
+ * /api/user/{id}/created:
  *   get:
- *     summary: Get images created by the user
+ *     summary: Get images created by a user by ID
  *     tags: [User]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: User ID
  *     responses:
  *       200:
  *         description: List of created images
  *       500:
  *         description: Server error
  */
-router.get("/me/created", authMiddleware, getCreatedImages);
+
+router.get("/:id/created", authMiddleware, getCreatedImages);
 
 /**
  * @swagger

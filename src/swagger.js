@@ -24,7 +24,7 @@ const options = {
       },
     },
   },
-  apis: ["./src/routes/*.js"], // Đường dẫn đến các file chứa JSDoc comments
+  apis: ["./src/routes/*.js"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);

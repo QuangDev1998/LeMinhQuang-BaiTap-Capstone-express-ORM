@@ -1,4 +1,4 @@
-﻿import * as userService from '../services/userService.js';
+﻿import * as userService from "../services/userService.js";
 
 export const getUserInfo = async (req, res) => {
   try {
@@ -12,9 +12,9 @@ export const getUserInfo = async (req, res) => {
 
 export const getSavedImages = async (req, res) => {
   try {
-    const userId = req.user.userId;
-    const images = await userService.getSavedImages(userId);
-    res.status(200).json(images);
+    const { id } = req.params;
+    const savedImages = await userService.getSavedImages(id);
+    res.status(200).json(savedImages);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -22,9 +22,9 @@ export const getSavedImages = async (req, res) => {
 
 export const getCreatedImages = async (req, res) => {
   try {
-    const userId = req.user.userId;
-    const images = await userService.getCreatedImages(userId);
-    res.status(200).json(images);
+    const { id } = req.params;
+    const createdImages = await userService.getCreatedImages(id);
+    res.status(200).json(createdImages);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
