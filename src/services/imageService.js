@@ -57,6 +57,20 @@ export const createImage = async (title, description, url, userId) => {
 
 export const saveImage = async (userId, imageId) => {
   return prisma.savedImage.create({
-    data: { userId, imageId },
+    data: { userId, imageId: Number(imageId) },
+  });
+};
+
+export const getUsersSavedImage = async (imageId) => {
+  return prisma.savedImage.findMany({
+    where: { imageId: Number(imageId) },
+    select: {
+      userId: true,
+      user: {
+        select: {
+          username: true,
+        },
+      },
+    },
   });
 };

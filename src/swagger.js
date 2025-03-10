@@ -1,12 +1,12 @@
 import swaggerJSDoc from "swagger-jsdoc";
 
-const options = {
+const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
       title: "Capstone-express-ORM API",
       version: "1.0.0",
-      description: "API documentation for the Image Sharing backend",
+      description: "API backend",
     },
     servers: [
       {
@@ -23,10 +23,11 @@ const options = {
         },
       },
     },
+    security: [{ bearerAuth: [] }],
   },
   apis: ["./src/routes/*.js"],
 };
 
-const swaggerSpec = swaggerJSDoc(options);
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 export default swaggerSpec;

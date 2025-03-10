@@ -42,10 +42,28 @@ export const getComments = async (req, res) => {
 export const saveImage = async (req, res) => {
   try {
     const { userId, imageId } = req.body;
-    const save = await imageService.saveImage(userId, imageId);
-    res.status(200).json(save);
+
+    if (!userId || !imageId) {
+      return res.status(400).json({
+        success: false,
+        message: "Thiếu userId hoặc imageId",
+      });
+    }
+
+    const save = await imageService.saveImage(userId, Number(imageId));
+
+    return res.status(201).json({
+      success: true,
+      message: "Hình ảnh đã được lưu thành công.",
+      data: save,
+    });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Lỗi server khi lưu hình ảnh.",
+      error: error.message,
+    });
   }
 };
 
@@ -53,10 +71,23 @@ export const checkSavedImage = async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.user.userId;
+
     const isSaved = await imageService.checkSavedImage(userId, id);
-    res.status(200).json({ isSaved });
+
+    const savedUsers = await imageService.getUsersSavedImage(id);
+
+    res.status(200).json({
+      success: true,
+      message: isSaved ? "Hình ảnh đã được lưu" : "Hình ảnh chưa được lưu",
+      isSaved,
+      savedBy: savedUsers,
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({
+      success: false,
+      message: "Lỗi server khi kiểm tra trạng thái hình ảnh.",
+      error: error.message,
+    });
   }
 };
 

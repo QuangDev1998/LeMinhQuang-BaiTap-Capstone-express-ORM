@@ -4,7 +4,7 @@ import imageRouter from "./routes/image.js";
 import userRouter from "./routes/user.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./swagger.js";
-import path from "path"; // Thêm import path
+import path from "path";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -22,7 +22,13 @@ app.use("/api/images", imageRouter);
 app.use("/api/user", userRouter);
 
 // Swagger UI
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/api-docs", swaggerUi.serve);
+app.get(
+  "/api-docs",
+  swaggerUi.setup(swaggerSpec, {
+    swaggerUiOptions: { persistAuthorization: true },
+  })
+);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

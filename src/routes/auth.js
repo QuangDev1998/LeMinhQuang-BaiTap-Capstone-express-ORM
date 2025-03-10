@@ -40,6 +40,8 @@ router.post("/register", register);
  *   post:
  *     summary: Login a user
  *     tags: [Auth]
+ *     security:
+ *      - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
