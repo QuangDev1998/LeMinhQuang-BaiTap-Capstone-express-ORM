@@ -22,11 +22,12 @@ app.use("/api/images", imageRouter);
 app.use("/api/user", userRouter);
 
 // Swagger UI
-app.use("/api-docs", swaggerUi.serve);
-app.get(
+
+app.use(
   "/api-docs",
+  swaggerUi.serve,
   swaggerUi.setup(swaggerSpec, {
-    swaggerUiOptions: { persistAuthorization: true },
+    swaggerOptions: { persistAuthorization: true },
   })
 );
 
